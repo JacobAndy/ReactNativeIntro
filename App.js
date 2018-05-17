@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs } from "./router/route";
+import { Tabs } from "./components/route";
 import { Provider } from "react-redux";
 import store from "./store";
 class App extends Component {

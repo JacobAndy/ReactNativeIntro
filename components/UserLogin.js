@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Button, TextInput, Image } from "react-native";
 import { connect } from "react-redux";
-import { logUserIn, createUser } from "../Ducks/user";
+import { logUserIn, createUser } from "../Ducks/userReducer";
 
 const remote =
   "https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
@@ -20,6 +20,8 @@ class User extends Component {
     console.log("LOG IN USER HANDLE HIT");
   }
   render() {
+    let { navigate } = this.props.navigation;
+    console.log(this.props.navigation);
     return (
       <View
         style={{
@@ -63,9 +65,13 @@ class User extends Component {
             }}
           >
             <TextInput
+              returnKeyType="done"
+              keyboardAppearance="dark"
+              selectionColor="blue"
               style={{
-                backgroundColor: "#1976D2",
-
+                backgroundColor: "#64B5F6",
+                paddingLeft: 10,
+                borderRadius: 3,
                 width: "90%",
                 height: 50,
                 fontSize: 30
@@ -77,9 +83,14 @@ class User extends Component {
               }}
             />
             <TextInput
+              returnKeyType="done"
+              keyboardAppearance="dark"
+              selectionColor="blue"
               secureTextEntry={true}
               style={{
-                backgroundColor: "#1976D2",
+                backgroundColor: "#64B5F6",
+                paddingLeft: 10,
+                borderRadius: 3,
                 width: "90%",
                 height: 50,
                 fontSize: 30
@@ -107,7 +118,10 @@ class User extends Component {
               onPress={() => this.handleLoginUser()}
             />
           </View>
-          <Text style={{ position: "absolute", bottom: 10, fontSize: 12 }}>
+          <Text
+            onPress={() => navigate("CreateUser")}
+            style={{ position: "absolute", bottom: 10, fontSize: 12 }}
+          >
             New User? Create an account!
           </Text>
         </View>
