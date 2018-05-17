@@ -1,9 +1,9 @@
 import promisemiddleware from "redux-promise-middleware";
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import user from "./Ducks/user";
+import userReducer from "./Ducks/userReducer";
 
 const store = createStore(
-  combineReducers({ user }),
+  combineReducers({ userReducer }),
   applyMiddleware(promisemiddleware())
 );
 export default store;

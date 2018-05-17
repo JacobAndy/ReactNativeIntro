@@ -12,16 +12,33 @@ const CREATE_USER = "CREATE_USER";
 //reducer
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
+    case `${CREATE_USER}_PENDING`:
+    case `${LOG_IN_USER}_FULFILLED`:
+
     default:
       return { ...state };
   }
 }
 
 //action creators
-export function createUser() {
+export function createUser(
+  userName,
+  email,
+  firstName,
+  lastName,
+  phoneNumber,
+  password
+) {
   return {
     type: CREATE_USER,
-    payload: axios.post("/api/user/create")
+    payload: axios.post("http://localhost:3001/api/user/create", {
+      userName,
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+      password
+    })
   };
 }
 export function logUserIn(user, pass) {
