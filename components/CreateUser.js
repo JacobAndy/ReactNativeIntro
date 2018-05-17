@@ -42,43 +42,44 @@ class CreateUser extends Component {
       password
     } = this.state;
     if (userName.match(userNameRegex) === null) {
-      this.setState({ userNameError: true });
+      this.setState({ userNameError: true, userName: "" });
     } else {
       this.setState({ userNameError: false });
     }
     if (!email || email.match(emailRegex) === null) {
-      this.setState({ emailError: true });
+      this.setState({ emailError: true, email: "" });
     } else {
       this.setState({ emailError: false });
     }
     if (!firstName || firstName.match(/^[a-zA-Z]+$/) === null) {
-      this.setState({ firstNameError: true });
+      this.setState({ firstNameError: true, firstName: "" });
     } else {
       this.setState({ firstNameError: false });
     }
     if (!lastName || lastName.match(/^[a-zA-Z]+$/) === null) {
-      this.setState({ lastNameError: true });
+      this.setState({ lastNameError: true, lastName: "" });
     } else {
       this.setState({ lastNameError: false });
     }
-    if (phoneNumber < 10 || phoneNumber.match(/^[0-9]*$/) === null) {
-      this.setState({ phoneNumberError: true });
+    if (phoneNumber.length < 10 || phoneNumber.match(/^[0-9]*$/) === null) {
+      this.setState({ phoneNumberError: true, phoneNumber: "" });
     } else {
       this.setState({ phoneNumberError: false });
     }
     if (password.match(passwordRegex) === null) {
-      this.setState({ passwordError: true });
+      this.setState({ passwordError: true, password: "" });
     } else {
       this.setState({ passwordError: false });
     }
-    this.props.createUser(
-      userName,
-      email,
-      firstName,
-      lastName,
-      phoneNumber,
-      password
-    );
+    // this.props.createUser(
+    //   userName,
+    //   email,
+    //   firstName,
+    //   lastName,
+    //   phoneNumber,
+    //   password
+    // );
+    // this.props.navigation.goBack();
   }
 
   render() {
@@ -125,6 +126,7 @@ class CreateUser extends Component {
             }}
           >
             <TextInput
+              value={this.state.userName}
               returnKeyType="done"
               keyboardAppearance="dark"
               placeholder="User Name"
@@ -134,7 +136,7 @@ class CreateUser extends Component {
                 !this.state.userNameError ? "#BBDEFB" : "#EF9A9A"
               }
               style={
-                !this.state.passwordError
+                !this.state.userNameError
                   ? {
                       backgroundColor: "#64B5F6",
                       borderRadius: 3,
@@ -155,6 +157,7 @@ class CreateUser extends Component {
               onChangeText={text => this.setState({ userName: text })}
             />
             <TextInput
+              value={this.state.email}
               returnKeyType="done"
               keyboardAppearance="dark"
               placeholder="Email"
@@ -164,7 +167,7 @@ class CreateUser extends Component {
                 !this.state.emailError ? "#BBDEFB" : "#EF9A9A"
               }
               style={
-                !this.state.passwordError
+                !this.state.emailError
                   ? {
                       backgroundColor: "#64B5F6",
                       borderRadius: 3,
@@ -185,6 +188,7 @@ class CreateUser extends Component {
               onChangeText={text => this.setState({ email: text })}
             />
             <TextInput
+              value={this.state.firstName}
               returnKeyType="done"
               keyboardAppearance="dark"
               placeholder="First Name"
@@ -194,7 +198,7 @@ class CreateUser extends Component {
                 !this.state.firstNameError ? "#BBDEFB" : "#EF9A9A"
               }
               style={
-                !this.state.passwordError
+                !this.state.firstNameError
                   ? {
                       backgroundColor: "#64B5F6",
                       borderRadius: 3,
@@ -216,6 +220,7 @@ class CreateUser extends Component {
               onChangeText={text => this.setState({ firstName: text })}
             />
             <TextInput
+              value={this.state.lastName}
               returnKeyType="done"
               keyboardAppearance="dark"
               placeholder="Last Name"
@@ -225,7 +230,7 @@ class CreateUser extends Component {
                 !this.state.lastNameError ? "#BBDEFB" : "#EF9A9A"
               }
               style={
-                !this.state.passwordError
+                !this.state.lastNameError
                   ? {
                       backgroundColor: "#64B5F6",
                       borderRadius: 3,
@@ -246,6 +251,7 @@ class CreateUser extends Component {
               onChangeText={text => this.setState({ lastName: text })}
             />
             <TextInput
+              value={this.state.phoneNumber}
               returnKeyType="done"
               keyboardAppearance="dark"
               keyboardType="number-pad"
@@ -257,7 +263,7 @@ class CreateUser extends Component {
                 !this.state.phoneNumberError ? "#BBDEFB" : "#EF9A9A"
               }
               style={
-                !this.state.passwordError
+                !this.state.phoneNumberError
                   ? {
                       backgroundColor: "#64B5F6",
                       borderRadius: 3,
@@ -275,9 +281,12 @@ class CreateUser extends Component {
                       fontSize: 20
                     }
               }
-              onChangeText={text => this.setState({ phoneNumber: text })}
+              onChangeText={text => {
+                this.setState({ phoneNumber: text });
+              }}
             />
             <TextInput
+              value={this.state.password}
               returnKeyType="done"
               keyboardAppearance="dark"
               placeholder="Password"
@@ -322,7 +331,6 @@ class CreateUser extends Component {
               title="SIGN UP"
               onPress={() => {
                 this.createUserHandle();
-                this.props.navigation.goBack();
               }}
             />
           </View>
