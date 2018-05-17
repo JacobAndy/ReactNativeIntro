@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { View, Text, Button, TextInput, Image } from "react-native";
+import { connect } from "react-redux";
+import { logUserIn, createUser } from "../Ducks/user";
 
 const remote =
   "https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
 
-export default class User extends Component {
+class User extends Component {
   constructor() {
     super();
     this.state = {
@@ -13,6 +15,8 @@ export default class User extends Component {
     };
   }
   handleLoginUser() {
+    let { userNameInput, passwordInput } = this.state;
+    this.props.logUserIn(userNameInput, passwordInput);
     console.log("LOG IN USER HANDLE HIT");
   }
   render() {
@@ -39,9 +43,9 @@ export default class User extends Component {
           style={{
             justifyContent: "space-around",
             alignItems: "center",
-            borderRadius: 5,
+            borderRadius: 10,
             width: "95%",
-            height: 400,
+            height: 450,
             backgroundColor: "#42A5F5",
             padding: 20
           }}
@@ -103,8 +107,18 @@ export default class User extends Component {
               onPress={() => this.handleLoginUser()}
             />
           </View>
+          <Text style={{ position: "absolute", bottom: 10, fontSize: 12 }}>
+            New User? Create an account!
+          </Text>
         </View>
       </View>
     );
   }
 }
+
+let mapStateToProps = state => {
+  return {
+    ...state
+  };
+};
+export default connect(mapStateToProps, { logUserIn, createUser })(User);
